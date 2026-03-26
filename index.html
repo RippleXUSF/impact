@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ripple for Social Good — USF × Ripple</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Sora:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:   #00543c;
+      --green2:  #006b4d;
+      --gold:    #c8922a;
+      --gold-lt: #f5c84a;
+      --cream:   #faf8f4;
+      --paper:   #f2ece0;
+      --ink:     #141210;
+      --ink-2:   #4a4540;
+      --ink-3:   #9a9288;
+      --rule:    #ddd5c5;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'Sora', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── TOPBAR ── */
+    .topbar { background: var(--green); border-bottom: 3px solid var(--gold); }
+    .topbar-inner {
+      max-width: 960px; margin: 0 auto; padding: 11px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .topbar-name {
+      font-size: 11px; font-weight: 500;
+      color: rgba(255,255,255,0.9);
+      letter-spacing: 0.07em; text-transform: uppercase; line-height: 1.5;
+    }
+    .topbar-name span {
+      display: block; font-weight: 300;
+      color: rgba(255,255,255,0.5); font-size: 10px;
+    }
+    .topbar-nav { display: flex; align-items: center; gap: 24px; }
+    .topbar-nav a {
+      font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+      color: rgba(255,255,255,0.9); letter-spacing: 0.07em;
+      text-transform: uppercase; text-decoration: none; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .topbar-nav a:hover { color: var(--gold-lt); }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--green);
+      border-bottom: 3px solid var(--gold);
+      padding: 80px 32px 72px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 420px; height: 420px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.06);
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 20px; right: 20px;
+      width: 280px; height: 280px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.04);
+    }
+
+    .hero-inner {
+      max-width: 960px; margin: 0 auto;
+      position: relative; z-index: 1;
+    }
+
+    .hero-eyebrow {
+      font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--gold-lt); margin-bottom: 20px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block; width: 28px; height: 1.5px;
+      background: var(--gold);
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(40px, 6vw, 68px);
+      font-weight: 900; line-height: 1.03;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 24px;
+      max-width: 700px;
+    }
+    .hero h1 em {
+      font-style: italic; font-weight: 700;
+      color: var(--gold-lt);
+    }
+
+    .hero-sub {
+      font-size: 15px; color: rgba(255,255,255,0.65);
+      line-height: 1.75; font-weight: 300;
+      max-width: 520px; margin-bottom: 40px;
+    }
+
+    .hero-stats {
+      display: flex; gap: 40px; flex-wrap: wrap;
+    }
+    .stat {
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px; font-weight: 900;
+      color: var(--gold-lt); line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .stat-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9.5px; letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      max-width: 960px; margin: 0 auto;
+      padding: 72px 32px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .section:last-of-type { border-bottom: none; }
+
+    .section-header {
+      display: flex; align-items: baseline; gap: 16px;
+      margin-bottom: 40px;
+    }
+    .section-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px; font-style: italic; font-weight: 700;
+      color: var(--rule);
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px; font-weight: 900;
+      letter-spacing: -0.02em; color: var(--ink);
+    }
+    .section-title em {
+      font-style: italic; color: var(--green);
+    }
+
+    /* ── FINANCIAL INCLUSION ── */
+    .fi-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .fi-problem {
+      background: var(--paper);
+      border: 1.5px solid var(--rule);
+      border-radius: 6px;
+      padding: 28px;
+    }
+    .fi-problem-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--ink-3);
+      margin-bottom: 12px;
+    }
+    .fi-problem p {
+      font-size: 13.5px; color: var(--ink-2);
+      line-height: 1.7; font-weight: 300;
+    }
+    .fi-problem strong { font-weight: 600; color: var(--ink); }
+
+    .fi-solution {
+      background: var(--green);
+      border-radius: 6px;
+      padding: 28px;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .fi-solution-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(255,255,255,0.45);
+      margin-bottom: 0;
+    }
+    .fi-bullets { display: flex; flex-direction: column; gap: 10px; }
+    .fi-bullet {
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+    .fi-bullet-icon {
+      width: 18px; height: 18px; flex-shrink: 0;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 9px; color: var(--gold-lt); margin-top: 1px;
+    }
+    .fi-bullet-text {
+      font-size: 13px; color: rgba(255,255,255,0.8);
+      line-height: 1.55; font-weight: 300;
+    }
+    .fi-bullet-text strong { color: #fff; font-weight: 600; }
+
+    /* ── UBRI ── */
+    .ubri-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .ubri-card {
+      border: 1.5px solid var(--rule);
+      border-radius: 6px;
+      padding: 24px;
+      background: var(--paper);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .ubri-card:hover { border-color: var(--green); transform: translateY(-2px); }
+    .ubri-card-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px; font-weight: 900;
+      color: var(--green); letter-spacing: -0.02em;
+      line-height: 1; margin-bottom: 6px;
+    }
+    .ubri-card-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--ink-3);
+      margin-bottom: 10px;
+    }
+    .ubri-card-desc {
+      font-size: 12.5px; color: var(--ink-2);
+      line-height: 1.6; font-weight: 300;
+    }
+
+    .ubri-desc {
+      font-size: 14px; color: var(--ink-2);
+      line-height: 1.75; font-weight: 300;
+      max-width: 680px;
+    }
+    .ubri-desc strong { font-weight: 600; color: var(--ink); }
+
+    /* ── SUSTAINABILITY ── */
+    .sustain-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 24px;
+    }
+    .sustain-main {
+      background: var(--paper);
+      border: 1.5px solid var(--rule);
+      border-radius: 6px;
+      padding: 32px;
+    }
+    .sustain-main p {
+      font-size: 14px; color: var(--ink-2);
+      line-height: 1.75; font-weight: 300;
+      margin-bottom: 20px;
+    }
+    .sustain-main p:last-child { margin-bottom: 0; }
+    .sustain-main strong { font-weight: 600; color: var(--ink); }
+
+    .sustain-stats {
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .sustain-stat {
+      background: var(--green);
+      border-radius: 6px;
+      padding: 20px;
+      flex: 1;
+    }
+    .sustain-stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px; font-weight: 900;
+      color: var(--gold-lt); line-height: 1;
+      letter-spacing: -0.02em; margin-bottom: 4px;
+    }
+    .sustain-stat-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* ── CTA ── */
+    .cta {
+      background: var(--ink);
+      padding: 80px 32px;
+    }
+    .cta-inner {
+      max-width: 960px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 48px; align-items: center;
+    }
+    .cta-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .cta h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 900; line-height: 1.1;
+      letter-spacing: -0.02em; color: #fff;
+      margin-bottom: 16px;
+    }
+    .cta h2 em { font-style: italic; color: var(--gold-lt); }
+    .cta p {
+      font-size: 14px; color: rgba(255,255,255,0.5);
+      line-height: 1.7; font-weight: 300; max-width: 480px;
+    }
+    .cta-buttons {
+      display: flex; flex-direction: column; gap: 12px;
+      flex-shrink: 0;
+    }
+    .btn {
+      display: inline-block;
+      padding: 13px 28px;
+      border-radius: 4px;
+      font-size: 12px; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      text-decoration: none; text-align: center;
+      font-family: 'IBM Plex Mono', monospace;
+      transition: transform 0.2s, opacity 0.2s;
+      white-space: nowrap;
+    }
+    .btn:hover { transform: translateY(-2px); opacity: 0.92; }
+    .btn-primary { background: var(--gold); color: var(--ink); }
+    .btn-secondary {
+      background: transparent;
+      color: rgba(255,255,255,0.7);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    /* ── FOOTER ── */
+    footer { background: var(--green); border-top: 3px solid var(--gold); }
+    .footer-inner {
+      max-width: 960px; margin: 0 auto; padding: 26px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 10px;
+    }
+    .footer-l {
+      font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+      color: rgba(255,255,255,0.5);
+    }
+    .footer-l strong { color: rgba(255,255,255,0.85); font-weight: 500; }
+    .footer-r {
+      font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes up {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .topbar       { animation: up 0.4s 0.05s ease both; }
+    .hero-inner   { animation: up 0.7s 0.15s ease both; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 720px) {
+      .fi-grid, .sustain-grid { grid-template-columns: 1fr; }
+      .ubri-row { grid-template-columns: 1fr 1fr; }
+      .cta-inner { grid-template-columns: 1fr; }
+      .cta-buttons { flex-direction: row; flex-wrap: wrap; }
+      .hero-stats { gap: 24px; }
+      .topbar-nav a { font-size: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="topbar-name">
+        University of San Francisco
+        <span>Computer Science</span>
+      </div>
+      <div class="topbar-nav">
+        <a href="https://ripplexusf.github.io/" target="_self">Home</a>
+        <a href="https://ripplexusf.github.io/schedule/" target="_self">Schedule</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Ripple for Social Good</div>
+      <h1>Blockchain that <em>changes lives.</em><br />Code that matters.</h1>
+      <p class="hero-sub">Ripple is using the XRP Ledger to solve real-world problems — from financial inclusion to climate change. Here's how you can be part of it.</p>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-num">1.4B</span>
+          <span class="stat-label">Unbanked people</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">$170M</span>
+          <span class="stat-label">Donated since 2018</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">50+</span>
+          <span class="stat-label">University partners</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">99.99%</span>
+          <span class="stat-label">More efficient than Bitcoin</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: FINANCIAL INCLUSION -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Financial <em>Inclusion</em></h2>
+    </div>
+    <div class="fi-grid">
+      <div class="fi-problem">
+        <div class="fi-problem-label">The Problem</div>
+        <p>
+          <strong>3+ billion people</strong> worldwide can't access basic financial services. Traditional remittances cost <strong>5–10% in fees</strong> — someone sending $200/month home loses up to $240 a year just in fees. No bank account means no safe savings, no credit, no way to build a future.
+        </p>
+      </div>
+      <div class="fi-solution">
+        <div class="fi-solution-label">Ripple's Solution — On-Demand Liquidity</div>
+        <div class="fi-bullets">
+          <div class="fi-bullet">
+            <div class="fi-bullet-icon">⚡</div>
+            <div class="fi-bullet-text"><strong>3-second settlement</strong> — instant cross-border payments, 24/7</div>
+          </div>
+          <div class="fi-bullet">
+            <div class="fi-bullet-icon">$</div>
+            <div class="fi-bullet-text"><strong>Under 1% fees</strong> vs 5–10% for traditional wire transfers</div>
+          </div>
+          <div class="fi-bullet">
+            <div class="fi-bullet-icon">◎</div>
+            <div class="fi-bullet-text"><strong>$0.0002 per transaction</strong> — micropayments finally become viable</div>
+          </div>
+          <div class="fi-bullet">
+            <div class="fi-bullet-icon">🌍</div>
+            <div class="fi-bullet-text"><strong>80+ countries</strong> with active NGO and fintech partners</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: UBRI -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">University Blockchain <em>Research</em></h2>
+    </div>
+    <div class="ubri-row">
+      <div class="ubri-card">
+        <div class="ubri-card-num">$80M</div>
+        <div class="ubri-card-label">Committed to education</div>
+        <div class="ubri-card-desc">Funding blockchain research and curriculum at universities worldwide since 2018.</div>
+      </div>
+      <div class="ubri-card">
+        <div class="ubri-card-num">50+</div>
+        <div class="ubri-card-label">University partners</div>
+        <div class="ubri-card-desc">MIT, UCL, IIT Bombay and dozens more — including USF.</div>
+      </div>
+      <div class="ubri-card">
+        <div class="ubri-card-num">1,000+</div>
+        <div class="ubri-card-label">Research projects</div>
+        <div class="ubri-card-desc">Students have published papers, built payment apps, and created tokenization platforms.</div>
+      </div>
+    </div>
+    <p class="ubri-desc">
+      Ripple's UBRI program funds faculty curriculum development, graduate research, and gives students direct access to <strong>XRP Ledger tools, APIs, and real-world projects</strong>. You don't just learn theory — you build things that ship.
+    </p>
+  </div>
+
+  <!-- SECTION 3: SUSTAINABILITY -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Sustainability &amp; <em>Carbon Markets</em></h2>
+    </div>
+    <div class="sustain-grid">
+      <div class="sustain-main">
+        <p>
+          Bitcoin uses as much energy as some countries. Ripple took a fundamentally different approach: the XRP Ledger uses a <strong>consensus protocol instead of mining</strong>, making it 99.99% more energy efficient than proof-of-work blockchains.
+        </p>
+        <p>
+          Ripple has been <strong>carbon neutral since 2020</strong> — the first major blockchain to achieve this. They then committed <strong>$100 million to modernize global carbon markets</strong> using blockchain, tokenizing 182,000 metric tons of carbon credits to make sustainability measurable and tradeable.
+        </p>
+      </div>
+      <div class="sustain-stats">
+        <div class="sustain-stat">
+          <div class="sustain-stat-num">2020</div>
+          <div class="sustain-stat-label">Carbon neutral since</div>
+        </div>
+        <div class="sustain-stat">
+          <div class="sustain-stat-num">$100M</div>
+          <div class="sustain-stat-label">For carbon markets</div>
+        </div>
+        <div class="sustain-stat">
+          <div class="sustain-stat-num">182K</div>
+          <div class="sustain-stat-label">Metric tons tokenized</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta">
+    <div class="cta-inner">
+      <div class="cta-text">
+        <div class="cta-eyebrow">Your Turn</div>
+        <h2>Build something that <em>actually matters.</em></h2>
+        <p>The XRP Ledger is open-source, fast, and costs fractions of a cent per transaction. You have the tools — financial inclusion, carbon markets, micropayments. What will you build?</p>
+      </div>
+      <div class="cta-buttons">
+        <a href="https://ripplexusf.github.io/sample_code/" class="btn btn-primary" target="_blank">Start with Sample Code</a>
+        <a href="https://learn.xrpl.org/" class="btn btn-secondary" target="_blank">Learn XRPL</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-l"><strong>University of San Francisco</strong> · CS Dept · Ripple for Social Good</div>
+      <div class="footer-r">usfca.edu · xrpl.org</div>
+    </div>
+  </footer>
+
+</body>
+</html>
